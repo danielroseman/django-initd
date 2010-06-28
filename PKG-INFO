@@ -1,0 +1,19 @@
+Metadata-Version: 1.0
+Name: django-initd
+Version: 0.0.1
+Summary: django-initd: module for creating initd daemons in Django.
+Home-page: http://github.com/danielroseman/django-initd
+Author: Daniel Roseman
+Author-email: daniel@roseman.org.uk
+License: http://www.gnu.org/licenses/gpl.html
+Description: A library to turn Django custom management commands into 
+        well-behaved initd daemons. Based on Michael Andreas Dagitses's
+        ``initd`` package.
+Platform: POSIX
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Boot :: Init
+Classifier: Framework :: Django

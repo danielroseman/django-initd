@@ -1,0 +1,32 @@
+There are a number of libraries around to manage daemonizing in Python, and 
+Django even includes an implementation (in `django.utils.daemonize`). However 
+a much more tricky thing to get right is proper management of the daemon 
+process itself.
+
+The important parts of such a process are these:
+
+    * it comes up automatically on server startup
+    * it logs errors and information to a named location, which is configurable
+    * if the process dies, it restarts itself straight away 
+
+This library builds on the Initd module from Michael Andreas Dagitses to use
+Django's daemonize code, and making it easy to call this from a custom 
+management command.
+
+Usage:
+
+Subclass the daemon_command.DaemonCommand class in your custom Django 
+management command (yourapp/management/command/yourcommand.py). Within your
+subclass, override the `loop_callback` method with the code the daemon process 
+should run. Optionally, override `exit_callback` with code to run when the 
+process is stopped.
+
+Alternatively, if your code has more complex setup/shutdown requirements,
+override `handle_noargs`, remembering to call the initd code:
+
+    daemon = Initd(**options)
+    daemon.execute(action, run=self.loop_callback, exit=self.exit_callback)
+
+Run the command as normal, but pass one of --start, --stop or --restart to 
+work as a daemon. Otherwise, the command will run as a standard application.
+
