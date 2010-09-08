@@ -29,6 +29,20 @@ class Initd(object):
         * run:function - The command to run (repeatedly) within the daemon.
 
         """
+        # if there's already a pid file, check if process is running
+        if os.path.exists(self.pid_file):
+            with open(self.pid_file, 'r') as stream:
+                pid = int(stream.read())
+            try:
+                # sending 0 signal doesn't do anything to live process, but 
+                # will raise error if process doesn't exist
+                os.kill(pid, 0)
+            except OSError:
+                pass
+            else:
+                logging.warn('Daemon already running.')
+                return
+
         from django.utils.daemonize import become_daemon
         become_daemon(self.workdir, self.stdout, self.stderr, self.umask)
 
