@@ -123,7 +123,7 @@ class Initd(object):
         if os.path.exists(self.pid_file):
             self.stop(self.pid_file)
         print 'Starting.'
-        self.start(run, self.pid_file, self.log_file)
+        self.start(run, exit=exit)
 
 
     def execute(self, action, run=None, exit=None):
