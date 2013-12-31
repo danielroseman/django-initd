@@ -6,7 +6,7 @@ Use this in conjunction with the DaemonCommand management command base class.
 
 from __future__ import with_statement
 
-import logging, os, signal, sys, time
+import logging, os, signal, sys, time, errno
 
 __all__ = ['start', 'stop', 'restart', 'execute']
 
@@ -100,8 +100,14 @@ class Initd(object):
         signal to the process with that as its pid.  This will also wait until
         the running process stops running.
         """
-        with open(self.pid_file, 'r') as stream:
-            pid = int(stream.read())
+        try:
+            with open(self.pid_file, 'r') as stream:
+                pid = int(stream.read())
+        except IOError as ioe:
+            if ioe.errno != errno.ENOENT:
+                raise
+            sys.stdout('Stopped.\n')
+            return
         sys.stdout.write('Stopping.')
         sys.stdout.flush()
         os.kill(pid, signal.SIGTERM)
