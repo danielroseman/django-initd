@@ -106,7 +106,7 @@ class Initd(object):
         except IOError as ioe:
             if ioe.errno != errno.ENOENT:
                 raise
-            sys.stdout('Stopped.\n')
+            sys.stdout.write('Stopped.\n')
             return
         sys.stdout.write('Stopping.')
         sys.stdout.flush()
