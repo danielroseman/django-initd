@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: django-initd
-Version: 0.0.1
+Version: 0.0.2
 Summary: django-initd: module for creating initd daemons in Django.
 Home-page: http://github.com/danielroseman/django-initd
 Author: Daniel Roseman
