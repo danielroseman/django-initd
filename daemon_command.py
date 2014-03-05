@@ -14,8 +14,8 @@ class DaemonCommand(NoArgsCommand):
     Alternatively, if your code has more complex setup/shutdown requirements,
     override `handle_noargs` along the lines of the basic version here. 
     
-    Pass one of --start, --stop, --restart or --status to work as a daemon. Otherwise,
-    the command will run as a standard application.
+    Pass one of --start, --stop, --restart or --status to work as a daemon.
+    Otherwise, the command will run as a standard application.
     """
     requires_model_validation = True
     WORKDIR = '.'
