@@ -14,8 +14,8 @@ class DaemonCommand(NoArgsCommand):
     Alternatively, if your code has more complex setup/shutdown requirements,
     override `handle_noargs` along the lines of the basic version here. 
     
-    Pass one of --start, --stop or --restart to work as a daemon. Otherwise, 
-    command will run as a standard application.
+    Pass one of --start, --stop, --restart or --status to work as a daemon.
+    Otherwise, the command will run as a standard application.
     """
     requires_model_validation = True
     WORKDIR = '.'
@@ -32,6 +32,8 @@ class DaemonCommand(NoArgsCommand):
                     help='Stop the daemon'),
         make_option('--restart', action='store_const', const='restart', dest='action',
                     help='Stop and restart the daemon'),
+        make_option('--status', action='store_const', const='status', dest='action',
+                    help='Report whether the daemon is currently running or stopped'),
         make_option('--workdir', action='store', dest='workdir', default=WORKDIR,
             help='Full path of the working directory to which the process should '
             'change on daemon start.'),

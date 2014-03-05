@@ -8,7 +8,7 @@ from __future__ import with_statement
 
 import logging, os, signal, sys, time, errno
 
-__all__ = ['start', 'stop', 'restart', 'execute']
+__all__ = ['start', 'stop', 'restart', 'status', 'execute']
 
 class Initd(object):
     def __init__(self, log_file='', pid_file='', workdir='', umask='', 
@@ -132,6 +132,18 @@ class Initd(object):
         self.start(run, exit=exit)
 
 
+    def status(self, run=None, exit=None):
+        """
+        Prints the daemon's status:
+        'Running.' if is started, 'Stopped.' if it is stopped.
+        """
+        if os.path.exists(self.pid_file):
+            sys.stdout.write('Running.\n')
+        else:
+            sys.stdout.write('Stopped.\n')
+        sys.stdout.flush()
+
+
     def execute(self, action, run=None, exit=None):
         cmd = getattr(self, action)
         cmd(run, exit)
@@ -170,6 +182,3 @@ def _create_pid_file(pid_file):
         logging.exception(err)
         logging.error('Failed to write to pid file, exiting now.')
         sys.exit(1)
-
-
-
