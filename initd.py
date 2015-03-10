@@ -3,8 +3,8 @@ Class to help with creation of initd scripts.
 
 Use this in conjunction with the DaemonCommand management command base class.
 """
+from __future__ import print_function
 
-from __future__ import with_statement
 
 import logging, os, signal, sys, time, errno
 
@@ -87,7 +87,7 @@ class Initd(object):
                     run()
                 # disabling warning for catching Exception, since it is the
                 # top level loop
-                except Exception, exc: # pylint: disable-msg=W0703
+                except Exception as exc: # pylint: disable-msg=W0703
                     logging.exception(exc)
         finally:
             os.remove(self.pid_file)
@@ -128,7 +128,7 @@ class Initd(object):
         """
         if os.path.exists(self.pid_file):
             self.stop(self.pid_file)
-        print 'Starting.'
+        print('Starting.')
         self.start(run, exit=exit)
 
 
@@ -178,7 +178,7 @@ def _create_pid_file(pid_file):
     try:
         with open(pid_file, 'w') as stream:
             stream.write(str(os.getpid()))
-    except OSError, err:
+    except OSError as err:
         logging.exception(err)
         logging.error('Failed to write to pid file, exiting now.')
         sys.exit(1)
