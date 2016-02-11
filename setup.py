@@ -12,7 +12,7 @@ doclines = __doc__.splitlines()
 
 setup(
     name = 'django-initd',
-    version = '0.0.2',
+    version = '0.0.3',
     py_modules = ['initd', 'daemon_command'],
     platforms = ['POSIX'],
 
@@ -33,6 +33,7 @@ setup(
         'License :: OSI Approved :: GNU General Public License (GPL)',
         'Operating System :: POSIX',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: System :: Boot :: Init',
     ],
